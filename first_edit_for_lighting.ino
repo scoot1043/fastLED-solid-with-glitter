@@ -8,7 +8,7 @@
 CRGB leds[NUM_LEDS];
 
 #define FRAMES_PER_SECOND   120
-#define GLITTER_LENGTH      3
+#define GLITTER_LENGTH      2
 #define WHITE CRGB(100, 255, 255)
 #define S4_NOGARO_BLUE CRGB(18, 62, 144)
 
@@ -48,8 +48,17 @@ void addGlitter( fract8 chanceOfGlitter)
 
     for (int i = 0; i < GLITTER_LENGTH; i++)
     {
-      leds[var + i] = WHITE;
-      leds[var + i].maximizeBrightness(255);
+      if (var + i > NUM_LEDS)
+      {
+        leds[abs(var - NUM_LEDS) + i] = WHITE;
+        leds[abs(var - NUM_LEDS) + i].maximizeBrightness(255);
+      }
+      else
+      {
+        leds[var + i] = WHITE;
+        leds[var + i].maximizeBrightness(255);
+      }
+
     }
   }
 
